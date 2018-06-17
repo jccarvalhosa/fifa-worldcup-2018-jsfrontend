@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueScrollTo from 'vue-scrollto';
 import moment from 'moment';
 import App from './App.vue';
 import router from './router';
@@ -7,11 +8,18 @@ import './style.scss';
 
 Vue.config.productionTip = false;
 
-// Vue.use(VueGoogleMaps, {
-//     load: {
-//         key: 'AIzaSyB9j9NDmj6GCCVvBhkFeBJZP1I0Vtg13BU',
-//     },
-// });
+Vue.use(VueScrollTo, {
+  container: 'body',
+      duration: 800,
+      easing: 'ease',
+      offset: 0,
+      cancelable: true,
+      onStart: false,
+      onDone: false,
+      onCancel: false,
+      x: false,
+      y: true,
+});
 
 moment.relativeTimeThreshold('m', 60);
 moment.relativeTimeThreshold('d', 3000);

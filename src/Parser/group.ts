@@ -31,7 +31,7 @@ class GroupParser {
     private static finished: boolean = false;
 
     private static createMatches(data: any, key: string): MatchModel[] {
-        GroupParser.finished = false;
+        GroupParser.finished = true;
         const matches: MatchModel[] = [];
         data.forEach((match: any) => {
             const hometeam = TeamParser.getTeam(match.home_team);
@@ -52,8 +52,8 @@ class GroupParser {
                     null,
                     key);
 
-                if (object.getHomeResult() !== null || object.getAwayResult() !== null) {
-                    GroupParser.finished = true;
+                if (object.getHomeResult() === null || object.getAwayResult() === null) {
+                    GroupParser.finished = false;
                 }
 
                 matches.push(object);

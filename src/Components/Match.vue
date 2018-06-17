@@ -1,5 +1,5 @@
 <template>
-    <tr :class="finishedclass" :id="'match_' + game.getId()">
+    <tr :class="startedclass" :id="'match_' + game.getId()">
         <td :class="gameclass + '--date'" class="text-center moment-date" :title="titledate" v-text="viewDate"></td>
         <td :class="homeclass + ' ' + gameclass + '--hometeam'" class="text-right">
             <teamname :team="game.getHomeTeam()"></teamname>
@@ -8,7 +8,7 @@
             </label>
         </td>
         <td :class="gameclass + '--spacer'" class="text-center" :title="game.getStadium().getName()">
-            <small v-text="'Match ' + game.getId()"></small>
+            <small v-text="'Jogo ' + game.getId()"></small>
         </td>
         <td :class="awayclass + ' ' + gameclass + '--awayteam'">
             <label :class="gameclass + '--label'">
@@ -22,14 +22,15 @@
 <script>
     import { mapMutations } from 'vuex';
     import MatchModel from '../Model/match';
+    import GroupModel from '../Model/group';
     import Teamname from './Teamname.vue';
     import functions from '../static';
 
     export default {
         props: {
-            id: {
-                type: String,
-                required: true,
+            group: {
+                type: GroupModel,
+                required: false,
             },
             game: {
                 type: MatchModel,
@@ -68,15 +69,14 @@
 
                     if (this.gametype === 'groups') {
                         this.SET_GROUP_MATCH_RESULT({
-                            matchid: this.game.getId(),
-                            groupid: this.id,
+                            matchData: this.game,
+                            groupData: this.group,
                             homescore,
                             awayscore,
                         });
                     } else {
                         this.SET_KNOCKOUT_MATCH_RESULT({
-                            matchid: this.game.getId(),
-                            knockoutid: this.id,
+                            matchData: this.game,
                             homescore,
                             awayscore,
                         });
@@ -92,16 +92,17 @@
                 return 'table-' + this.gametype;
             },
             viewDate() {
-                return this.game.getDate().from(this.$store.state.Time.now);
+                return this.game.getDate().from(this.$store.state.Time.now)
+                    .replace('days', 'dias').replace('a day', '1 dia')
+                    .replace('hours', 'horas').replace('an hour', '1 hora')
+                    .replace('minutes', 'minutos').replace('a minute', '1 minuto')
+                    .replace('ago', 'atrás').replace('in ', 'daqui a ');
             },
             titledate() {
                 return functions.titleDate(this.game.getDate());
             },
-            finished() {
-                return this.game.getFinished();
-            },
-            finishedclass() {
-                return this.game.isFinish() ? this.gameclass + '--finished' : '';
+            startedclass() {
+                return this.game.isStarted() ? this.gameclass + '--started' : '';
             },
             homeclass() {
                 if (this.game.isFinish()) {

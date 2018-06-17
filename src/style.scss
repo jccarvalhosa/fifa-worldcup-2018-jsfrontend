@@ -6,7 +6,7 @@ $fa-font-path: '/fonts';
 @import "~font-awesome/scss/font-awesome.scss";
 
 body {
-    background: #a6a2a3;
+    background: white;
 }
 
 table {
@@ -23,7 +23,11 @@ footer {
 
 .table-vsm td, .table-vsm th {
     padding: 0.2rem;
-    font-size: 0.8rem;
+}
+
+abbr[title], acronym[title] {
+    border-bottom: none;
+    text-decoration: none;
 }
 
 .table-noborder td {
@@ -39,8 +43,7 @@ footer {
         cursor: pointer;
     }
     &.team--name--hover {
-        letter-spacing: -0.4px;
-        font-weight: bold;
+        text-shadow: -0.6px 0px 0.6px #333333;
     }
 }
 
@@ -50,12 +53,12 @@ footer {
     @extend .mb-4;
     @extend .justify-content-around;
     &>.col {
-        flex-basis: 25%;
+        flex-basis: 50%;
     }
     & .card--group {
         @extend .mb-4;
         table {
-            @extend .table-vsm;
+            @extend .table-sm;
         }
         button {
             @extend .p-2;
@@ -115,16 +118,23 @@ footer {
     &--label {
         margin-bottom: 0;
     }
-    &--finished {
+    &--started {
+        & label {
+            pointer-events:none;
+            opacity: 0.96;
+        }
     }
     &--winner {
         background-color: #c3e6cb;
+        color: black;
     }
     &--loser {
-        background-color: #ff626d;
+        background-color: #eeb2bd;
+        color: black;
     }
     &--draw {
         background-color: #bee5eb;
+        color: black;
     }
     &--hometeam {
         white-space: nowrap;
@@ -146,14 +156,20 @@ footer {
 .close {
     cursor: pointer;
     &--close span {
-        transform: rotate(0deg);
         transition: all 0.5s;
         display: inline-block;
+        &:before {
+            content:"↑";
+            font-size: 12px;
+        }
     }
     &--plus span {
-        transform: rotate(-45deg);
         transition: all 0.5s;
         display: inline-block;
+        &:before {
+            content:"ver jogos";
+            font-size: 12px;
+        }
     }
     &:focus {
         outline: none;
@@ -237,4 +253,114 @@ tbody.tbody {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.relative {
+    position: relative;
+}
+
+.logo {
+    margin: 5px 5px 5px 25px;
+    font-size: 20px;
+}
+
+#box-info .caption {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    max-width: 40%;
+}
+
+#box-info .caption p {
+    font-size: 4.5vw;
+    color: white;
+}
+
+#box-info .caption .btn {
+    font-size: calc(10px + 0.8vw);
+    padding: 6px 20px 6px 20px;
+}
+
+#img-box-info {
+    content:url("../public/images/img-neymar.png")
+}
+
+#box-how-it-works .col {
+    padding: 0px;
+}
+
+#box-how-it-works .caption {
+    position: absolute;
+    top: 15%;
+    left: 20%;
+}
+
+#box-how-it-works .text-success {
+    font-size: calc(8px + 0.85vw);
+}
+
+#box-how-it-works .lead {
+    font-size: 4.5vw;
+    margin: 25px 0px 25px 0px;
+    color: #333333;
+}
+
+#box-how-it-works .sideline {
+    font-size: 1.8vw;
+    color: #333333;
+}
+
+#img-how-it-works {
+    content:url("../public/images/img-chuteira.png")
+}
+
+#box-results-table {
+    background-color: rgba(0,0,0,0.04);
+    padding: 7%;
+}
+
+#box-results-table .lead {
+    margin: 25px 0px 25px 0px;
+    font-size: 4vw;
+    width: 100%;
+    text-align: center;
+    color: #333333;
+}
+
+#box-share-with-friends {
+    @extend .bg-success;
+    @extend .text-white;
+}
+
+#box-share-with-friends p {
+    width: 100%;
+    text-align: center;
+    margin: 0px;
+}
+
+#box-share-with-friends .sideline-lead {
+    font-size: 1.2vw;
+    opacity: 0.8;
+    margin-bottom: 5%;
+}
+
+#box-share-with-friends .sideline-icons {
+    font-size: 1vw;
+    opacity: 0.7;
+    margin-bottom: 5%;
+}
+
+#box-share-with-friends .share-icons {
+    margin: 0 auto;
+}
+
+#box-share-with-friends .share-icons .col {
+    margin-top: 10%;
+    margin-bottom: 8%;
+}
+
+#box-share-with-friends .lead {
+    font-size: 3.5vw;
+    margin-bottom:0px;
+    margin-top:5%;
 }

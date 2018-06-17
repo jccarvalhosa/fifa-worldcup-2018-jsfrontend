@@ -3,7 +3,7 @@
         <div class="card-header" v-html="name"></div>
         <table class="table table-vsm table-knockouts">
             <tbody>
-                <match v-for="(match, index) in knockout.matches" :key="index" :id="knockout.getName()" :game="match" :gametype="'knockouts'"></match>
+                <match v-for="(match, index) in knockout.matches" :key="index" :game="match" :gametype="'knockouts'"></match>
             </tbody>
         </table>
     </article>

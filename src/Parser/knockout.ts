@@ -15,7 +15,7 @@ class KnockoutParser {
         Object.keys(phases).forEach((key) => {
             output.push(new KnockoutModel(
                 key,
-                phases[key].name,
+                KnockoutParser.nameTranslation[phases[key].name] || phases[key].name,
                 KnockoutParser.createKnockoutMatches(phases[key].matches, groups, phases[key].name)))
             ;
         });
@@ -32,6 +32,14 @@ class KnockoutParser {
 
         return data;
     }
+
+    private static nameTranslation: { [key: string]: string } = {
+        'Round of 16': 'Oitavas de Final',
+        'Quarter-finals': 'Quartas de Final',
+        'Semi-finals': 'Semi Finais',
+        'Third place play-off': 'Terceiro Lugar',
+        'Final': 'Final',
+    };
 
     private static createKnockoutMatches(matches: any, groups: GroupModel[], key: string): MatchModel[] {
         const output: MatchModel[] = [];
@@ -78,13 +86,13 @@ class KnockoutParser {
                     if (splitted[0] === 'winner') {
                         return foundGroup.getFinished()
                             ? foundGroup.getStandings()[0].getTeam()
-                            : 'Winner of group ' + foundGroup.getName().toUpperCase()
+                            : '1º Grupo ' + foundGroup.getName().toUpperCase()
                             ;
                     }
 
                     return foundGroup.getFinished()
                         ? foundGroup.getStandings()[1].getTeam()
-                        : 'Runner up group ' + foundGroup.getName().toUpperCase()
+                        : '2º Grupo ' + foundGroup.getName().toUpperCase()
                     ;
                 }
 
@@ -94,13 +102,13 @@ class KnockoutParser {
                 if (foundmatch && foundmatch.isFinish()) {
                     return foundmatch.getWinner();
                 }
-                return 'Winner of match ' + matchteam;
+                return 'Vencedor Jogo ' + matchteam;
             case 'loser':
                 foundmatch = KnockoutParser.findKnockoutMatch(matchteam);
                 if (foundmatch && foundmatch.isFinish()) {
                     return foundmatch.getLoser();
                 }
-                return 'Loser of match ' + matchteam;
+                return 'Perdedor Jogo ' + matchteam;
         }
     }
 
