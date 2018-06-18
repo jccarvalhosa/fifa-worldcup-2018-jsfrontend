@@ -102,13 +102,13 @@ class KnockoutParser {
                 if (foundmatch && foundmatch.isFinish()) {
                     return foundmatch.getWinner();
                 }
-                return 'Vencedor Jogo ' + matchteam;
+                return 'Vencedor ' + matchteam;
             case 'loser':
                 foundmatch = KnockoutParser.findKnockoutMatch(matchteam);
                 if (foundmatch && foundmatch.isFinish()) {
                     return foundmatch.getLoser();
                 }
-                return 'Perdedor Jogo ' + matchteam;
+                return 'Perdedor ' + matchteam;
         }
     }
 
